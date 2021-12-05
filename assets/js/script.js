@@ -3,13 +3,15 @@ var oneCall = "https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lo
 
 var getCoords = "api.openweathermap.org/data/2.5/weather?q={city name}&appid=" + apiKey
 // template literal
-var temp = `https://api.openweathermap.org/data/2.5/weather?q={city name}&appid=${apiKey}`
+// var temp = `https://api.openweathermap.org/data/2.5/weather?q={city name}&appid=${apiKey}`
 
 
 var searchInput = document.getElementById("searchInput");
 var searchForm = document.getElementById("searchForm");
 var current = document.getElementById('current');
 var now = (dayjs().format('(M/DD/YYYY)'));
+
+
 
 
 
@@ -23,20 +25,31 @@ function handleInputSubmit(event) {
     var cityEl = document.createElement('h2');
     cityEl.textContent = cityName + now;
     current.append(cityEl);
-  
+
 
     fetchCoords(cityName);
     searchInput.value = '';
+
 }
 //---------------------------------------End handleInputSubmit Function------------------------------------------
 
 
+
+
 function fetchCoords(city) {
-    console.log(city);    
+    
+    var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 
-
-
-
+    fetch(apiURL)
+        .then(function (response) {
+            response.json()
+                .then(function (data) {
+                    var lat = data.coord.lat;
+                    var lon = data.coord.lon;
+                    console.log(city,lat,lon);     
+                    console.log(data);                                   
+                })
+        })
 }
 
 
