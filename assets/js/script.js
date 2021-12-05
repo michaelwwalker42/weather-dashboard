@@ -5,19 +5,40 @@ var getCoords = "api.openweathermap.org/data/2.5/weather?q={city name}&appid=" +
 // template literal
 var temp = `https://api.openweathermap.org/data/2.5/weather?q={city name}&appid=${apiKey}`
 
-var searchInput = document.getElementById("searchInput").value;
+
+var searchInput = document.getElementById("searchInput");
 var searchForm = document.getElementById("searchForm");
+var current = document.getElementById('current');
+var now = (dayjs().format('(M/DD/YYYY)'));
+
+
+
+
+//-------------------------------------------handleInputSubmit Function------------------------------------------
 
 function handleInputSubmit(event) {
     event.preventDefault();
-    var search = searchInput.value;
-    fetchCoords(search);
-    //searchInput.value = '';
+
+    var cityName = searchInput.value;
+    var cityEl = document.createElement('h2');
+    cityEl.textContent = cityName + now;
+    current.append(cityEl);
+  
+
+    fetchCoords(cityName);
+    searchInput.value = '';
 }
+//---------------------------------------End handleInputSubmit Function------------------------------------------
+
 
 function fetchCoords(city) {
-    console.log(city)
+    console.log(city);    
+
+
+
+
 }
+
 
 
 searchForm.addEventListener('submit', handleInputSubmit);
