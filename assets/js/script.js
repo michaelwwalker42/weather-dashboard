@@ -1,10 +1,16 @@
 var apiKey = "9195677d0010c5ed8b3059b59c364e87"
 
+var current = document.getElementById('current');
+var currentCity = document.getElementById("currentCity");
+var humidityEl = document.getElementById('humidityEl');
 var searchInput = document.getElementById("searchInput");
 var searchForm = document.getElementById("searchForm");
-var current = document.getElementById('current');
+var tempEl = document.getElementById('tempEl');
+var uvEl = document.getElementById('uvEl');
+var windEl = document.getElementById('windEl');
+
 var now = (dayjs().format(' (M/DD/YYYY)'));
-var currentCity = document.getElementById("currentCity");
+
 
 
 
@@ -43,9 +49,25 @@ function handleInputSubmit(event) {
                             .then(function (response) {
                                 response.json()
                                     .then(function (data) {
-                                        var uvi = (data.daily[0].uvi);
-                                        console.log("UVI: " + uvi);
+                                        var currentTemp = data.current.temp;
+                                        console.log("Temp: " + currentTemp);
+                                        // show current temperature, degree symbol(&#176)
+                                        tempEl.innerHTML = "Temp: " + currentTemp + "<span>&#176;</span>F";
+                                        
+                                        var windSpeed = data.current.wind_speed;
+                                        console.log("Wind: " + windSpeed + "MPH");
+                                        // show current wind speed
+                                        windEl.innerText = "Wind: " + windSpeed + " MPH"
 
+                                        var humidity = data.current.humidity;
+                                        console.log("Humidity: " + humidity + " %");
+                                        // show current humidity
+                                        humidityEl.innerText = "Humidity: " + humidity + "%";
+
+                                        var uvi = data.daily[0].uvi;
+                                        console.log("UV Index: " + uvi);
+                                        // show curret UV Index
+                                        uvEl.innerHTML = "UV Index: " + uvi;
                                     })
                             });
                     })
