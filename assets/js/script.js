@@ -38,7 +38,12 @@ function handleInputSubmit(event) {
                         console.log("Longitude: " + lon);
 
                         console.log(data);
-                        //---------------------- NEED TO GET WEATHER ICON ----------------------------------------
+                        // show icon for current weather                         
+                        var weatherIcon = (data.weather[0].icon);                                                                     
+                        var iconEl = document.createElement("img");
+                        iconEl.setAttribute("src", `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`);                         
+                        iconEl.setAttribute("class", "icon");                       
+                        currentCity.append(iconEl);
 
                         // use coordinates in api url
                         var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`;
