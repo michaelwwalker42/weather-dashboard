@@ -1,41 +1,49 @@
 var apiKey = "9195677d0010c5ed8b3059b59c364e87";
 var now = (dayjs().format(' (M/DD/YYYY)'));
+var cities = [];
 
 var current = document.getElementById('current');
 var currentCity = document.getElementById("currentCity");
 var humidityEl = document.getElementById('humidityEl');
 var forecast = document.getElementById('forecast');
-var forecastH2 = document.getElementById('forecastH2');
+var forecastH3 = document.getElementById('forecastH3');
 var forecastContainer = document.getElementById('forecastContainer');
+var pastSearches = document.getElementById('pastSearches');
 var searchInput = document.getElementById("searchInput");
 var searchForm = document.getElementById("searchForm");
 var tempEl = document.getElementById('tempEl');
 var uvEl = document.getElementById('uvEl');
 var windEl = document.getElementById('windEl');
 
+
 //-------------------------------------------handleInputSubmit Function------------------------------------------
 
 function handleInputSubmit(event) {
-    event.preventDefault();
+    event.preventDefault();    
+    
     // display city name and current date
     var cityName = searchInput.value;
     currentCity.textContent = cityName + now;
     current.setAttribute("class", "border border-dark p-1 my-2");
-
+    // show forecast container
     forecastContainer.innerHTML = "";
     forecastContainer.classList.remove("d-none");
-    forecastH2.textContent = "5-Day Forecast:"
+    forecastH3.textContent = "5-Day Forecast:"
+    // get weather for input city
+    fetchWeather(cityName);
 
-    fetchCoords(cityName);
+    saveCities(cityName);
+
+    showHistory();
+    
     searchInput.value = '';
-    // get latitude and longitude coordinates
+
 }
 //---------------------------------------End handleInputSubmit Function------------------------------------------
 
+//----------------------------------------------fetchWeather function----------------------------------------------
 
-//----------------------------------------------fetchCoords function----------------------------------------------
-
-function fetchCoords(city) {
+function fetchWeather(city) {
     // template literal
     var apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 
@@ -60,19 +68,21 @@ function fetchCoords(city) {
                         .then(function (response) {
                             response.json()
                                 .then(function (data) {
-
-                                    console.log(data);
+                                    // loop over first 5 days of forecast
                                     for (let index = 0; index < 5; index++) {
                                         // create card elements to show forecast
                                         var forecastCardEl = document.createElement("div");
-                                        forecastCardEl.setAttribute("class", "card-body forecastCard m-1 p-1 col-sm-12 col-2 fs-5 text-white");
+                                        forecastCardEl.setAttribute("class", "card-body forecastCard m-1 p-1 col-2 fs-5 text-white");
                                         // create element to show forecast date
                                         var forecastDay = dayjs((data.daily[index].dt) * 1000).format('M/DD/YYYY');
                                         var forecastDayEl = document.createElement('p');
                                         forecastDayEl.innerText = forecastDay;
+                                        forecastDayEl.setAttribute("class", "card-header darkBlue text-center");
                                         // create element for forecast temperature
-                                        var dailyTemp = document.createElement("p");
-                                        dailyTemp.innerHTML = "Temp: " + data.daily[index].temp.day + "<span>&#176;</span>F";
+                                        var dailyTemp = data.daily[index].temp.day;
+                                        var dailyTempEl = document.createElement('p');
+                                        dailyTempEl.innerHTML = "Temp: " + dailyTemp + "<span>&#176;</span>F";
+
                                         // create element for forecast wind                                        
                                         var dailyWindSpeed = data.daily[index].wind_speed;
                                         var dailyWindSpeedEl = document.createElement("p");
@@ -88,9 +98,9 @@ function fetchCoords(city) {
                                         dailyIconEl.setAttribute("class", "icon");
 
                                         // append forecast elements to forecast cards
-                                        forecastCardEl.append(forecastDay);
+                                        forecastCardEl.append(forecastDayEl);
                                         forecastCardEl.append(dailyIconEl);
-                                        forecastCardEl.append(dailyTemp);
+                                        forecastCardEl.append(dailyTempEl);
                                         forecastCardEl.append(dailyWindSpeedEl);
                                         forecastCardEl.append(dailyHumidityEl);
                                         // append forecast cards to container
@@ -126,6 +136,25 @@ function fetchCoords(city) {
                 })
         })
 };
-//-------------------------------------------End fetchCoords function----------------------------------------------
+//-------------------------------------------End fetchWeather function----------------------------------------------
+
+function saveCities(city) {
+    cities.unshift(city);
+    localStorage.setItem("cities", JSON.stringify(cities));
+};
+
+function showHistory(){
+    cities = JSON.parse(localStorage.getItem("cities")) || [];
+    pastSearches.innerHTML = "";
+    for (let index = 0; index < cities.length; index++) {
+        var pastSearchButton = document.createElement("button");
+        pastSearchButton.innerText = cities[index];
+        pastSearchButton.setAttribute("class","btn btn lightBlue w-100 mt-2 text-black");
+        pastSearchButton.setAttribute("type", "submit");
+        pastSearches.append(pastSearchButton);
+    }
+};
+
+
 
 searchForm.addEventListener('submit', handleInputSubmit);
