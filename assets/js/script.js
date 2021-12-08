@@ -1,7 +1,5 @@
 var apiKey = "9195677d0010c5ed8b3059b59c364e87";
 var now = (dayjs().format(' (M/DD/YYYY)'));
-var cities = [];
-
 var current = document.getElementById('current');
 var currentCity = document.getElementById("currentCity");
 var humidityEl = document.getElementById('humidityEl');
@@ -15,16 +13,22 @@ var tempEl = document.getElementById('tempEl');
 var uvEl = document.getElementById('uvEl');
 var windEl = document.getElementById('windEl');
 
+var cities = [];
+if (localStorage.getItem("cities") !== null) {
+    cities = JSON.parse(localStorage.getItem("cities"));
+}
+
 
 //-------------------------------------------handleInputSubmit Function------------------------------------------
 
 function handleInputSubmit(event) {
-    event.preventDefault();    
-    
+    event.preventDefault();
+    showHistory();
+
     // display city name and current date
     var cityName = searchInput.value;
     currentCity.textContent = cityName + now;
-    current.setAttribute("class", "border border-dark p-1 my-2");
+    current.setAttribute("class", "border border-dark shadow p-1 my-2");
     // show forecast container
     forecastContainer.innerHTML = "";
     forecastContainer.classList.remove("d-none");
@@ -34,8 +38,6 @@ function handleInputSubmit(event) {
 
     saveCities(cityName);
 
-    showHistory();
-    
     searchInput.value = '';
 
 }
@@ -140,17 +142,18 @@ function fetchWeather(city) {
 
 function saveCities(city) {
     cities.unshift(city);
+    cities.splice(7);
     localStorage.setItem("cities", JSON.stringify(cities));
 };
 
-function showHistory(){
-    cities = JSON.parse(localStorage.getItem("cities")) || [];
+function showHistory() {
+
     pastSearches.innerHTML = "";
     for (let index = 0; index < cities.length; index++) {
         var pastSearchButton = document.createElement("button");
         pastSearchButton.innerText = cities[index];
-        pastSearchButton.setAttribute("class","btn btn lightBlue w-100 mt-2 text-black");
-        pastSearchButton.setAttribute("type", "submit");
+        pastSearchButton.setAttribute("class", "btn lightBlue w-100 mt-2 text-black");
+
         pastSearches.append(pastSearchButton);
     }
 };
@@ -158,3 +161,11 @@ function showHistory(){
 
 
 searchForm.addEventListener('submit', handleInputSubmit);
+pastSearches.addEventListener('click', function(event){
+    
+    var pastCity = event.target.innerText;
+    console.log(pastCity);
+    currentCity.innerText = pastCity;
+    forecastContainer.innerHTML = "";
+    fetchWeather(event.target.innerText);
+})
