@@ -4,7 +4,7 @@ var now = (dayjs().format(' (M/DD/YYYY)'));
 var current = document.getElementById('current');
 var currentCity = document.getElementById("currentCity");
 var humidityEl = document.getElementById('humidityEl');
-var forecast = document.getElementById('forescast');
+var forecast = document.getElementById('forecast');
 var forecastH2 = document.getElementById('forecastH2');
 var forecastContainer = document.getElementById('forecastContainer');
 var searchInput = document.getElementById("searchInput");
@@ -22,6 +22,7 @@ function handleInputSubmit(event) {
     currentCity.textContent = cityName + now;
     current.setAttribute("class", "border border-dark p-1 my-2");
 
+    forecastContainer.classList.remove("d-none");
     forecastH2.textContent = "5-Day Forecast:"
 
     fetchCoords(cityName);
@@ -60,11 +61,8 @@ function fetchCoords(city) {
                                 .then(function (data) {
 
                                     console.log(data);
-                                    for (let index = 0; index < 5; index++) {
-                                        
-                                        var forecastDay = dayjs((data.daily[index].dt) * 1000).format(' (M/DD/YYYY)');
-                                        console.log(forecastDay);
-
+                                    for (let index = 0; index < 5; index++) {              
+                                       
                                         var dailyTemp = data.daily[index].temp.day;
                                         console.log("Daily temp: " + dailyTemp);
 
@@ -75,10 +73,19 @@ function fetchCoords(city) {
                                         console.log("Daily humidity: " + dailyHumidity);
 
                                         var dailyIcon = data.daily[index].weather[0].icon;
-                                        console.log("Daily icon: " + dailyIcon);                                        
+                                        console.log("Daily icon: " + dailyIcon);
 
+                                        var forecastCardEl = document.createElement("div");
+                                        forecastCardEl.setAttribute("class", "card-body forecastCard m-1 col-sm-12 col-2 text-white");
+
+                                        var forecastDay = document.createElement('h5');
+                                        forecastDay.innerText = dayjs((data.daily[index].dt) * 1000).format('M/DD/YYYY');
+                                        
+                                        forecastCardEl.append(forecastDay);
+
+                                        forecastContainer.append(forecastCardEl);                                        
+                                        
                                     }
-
 
                                     // show current temperature, degree symbol(&#176)
                                     var currentTemp = data.current.temp;
