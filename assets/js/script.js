@@ -1,4 +1,4 @@
-var apiKey = "9195677d0010c5ed8b3059b59c364e87"
+var apiKey = "9195677d0010c5ed8b3059b59c364e87";
 var now = (dayjs().format(' (M/DD/YYYY)'));
 
 var current = document.getElementById('current');
@@ -22,6 +22,7 @@ function handleInputSubmit(event) {
     currentCity.textContent = cityName + now;
     current.setAttribute("class", "border border-dark p-1 my-2");
 
+    forecastContainer.innerHTML = "";
     forecastContainer.classList.remove("d-none");
     forecastH2.textContent = "5-Day Forecast:"
 
@@ -61,30 +62,40 @@ function fetchCoords(city) {
                                 .then(function (data) {
 
                                     console.log(data);
-                                    for (let index = 0; index < 5; index++) {              
-                                       
-                                        var dailyTemp = data.daily[index].temp.day;
-                                        console.log("Daily temp: " + dailyTemp);
-
-                                        var dailyWindSpeed = data.daily[index].wind_speed;
-                                        console.log("Daily wind speed: " + dailyWindSpeed);
-
-                                        var dailyHumidity = data.daily[index].humidity;
-                                        console.log("Daily humidity: " + dailyHumidity);
-
-                                        var dailyIcon = data.daily[index].weather[0].icon;
-                                        console.log("Daily icon: " + dailyIcon);
-
+                                    for (let index = 0; index < 5; index++) {
+                                        // create card elements to show forecast
                                         var forecastCardEl = document.createElement("div");
-                                        forecastCardEl.setAttribute("class", "card-body forecastCard m-1 col-sm-12 col-2 text-white");
+                                        forecastCardEl.setAttribute("class", "card-body forecastCard m-1 p-1 col-sm-12 col-2 fs-5 text-white");
+                                        // create element to show forecast date
+                                        var forecastDay = dayjs((data.daily[index].dt) * 1000).format('M/DD/YYYY');
+                                        var forecastDayEl = document.createElement('p');
+                                        forecastDayEl.innerText = forecastDay;
+                                        // create element for forecast temperature
+                                        var dailyTemp = document.createElement("p");
+                                        dailyTemp.innerHTML = "Temp: " + data.daily[index].temp.day + "<span>&#176;</span>F";
+                                        // create element for forecast wind                                        
+                                        var dailyWindSpeed = data.daily[index].wind_speed;
+                                        var dailyWindSpeedEl = document.createElement("p");
+                                        dailyWindSpeedEl.innerText = "Wind: " + dailyWindSpeed + "  MPH";
+                                        // create element to show forecast humidity
+                                        var dailyHumidity = data.daily[index].humidity;
+                                        var dailyHumidityEl = document.createElement('p');
+                                        dailyHumidityEl.innerText = "Humidity: " + dailyHumidity + " %";
+                                        // create element for forecast weather icon
+                                        var dailyIcon = data.daily[index].weather[0].icon;
+                                        var dailyIconEl = document.createElement("img");
+                                        dailyIconEl.setAttribute("src", `http://openweathermap.org/img/wn/${dailyIcon}@2x.png`);
+                                        dailyIconEl.setAttribute("class", "icon");
 
-                                        var forecastDay = document.createElement('h5');
-                                        forecastDay.innerText = dayjs((data.daily[index].dt) * 1000).format('M/DD/YYYY');
-                                        
+                                        // append forecast elements to forecast cards
                                         forecastCardEl.append(forecastDay);
+                                        forecastCardEl.append(dailyIconEl);
+                                        forecastCardEl.append(dailyTemp);
+                                        forecastCardEl.append(dailyWindSpeedEl);
+                                        forecastCardEl.append(dailyHumidityEl);
+                                        // append forecast cards to container
+                                        forecastContainer.append(forecastCardEl);
 
-                                        forecastContainer.append(forecastCardEl);                                        
-                                        
                                     }
 
                                     // show current temperature, degree symbol(&#176)
