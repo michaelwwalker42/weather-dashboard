@@ -1,5 +1,7 @@
 # weather-dashboard
 
+### [Link to Page](https://michaelwwalker42.github.io/weather-dashboard/)
+
 ## User Story
 AS A traveler
 I WANT to see the weather outlook for multiple cities
@@ -22,4 +24,4 @@ Mock-Up
 ## Mock-Up
 The following image shows the web application's appearance and functionality:
 
-![weather-dashboard mock up](assets\images\weather-dashboard-screenshot.png)
+![weather-dashboard mock up](https://github.com/michaelwwalker42/weather-dashboard/blob/main/assets/images/weather-dashboard-screenshot.png?raw=true)
