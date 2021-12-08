@@ -22,4 +22,4 @@ Mock-Up
 ## Mock-Up
 The following image shows the web application's appearance and functionality:
 
-![weather-dashboard mock up](assets\images\06-server-side-apis-homework-demo.png)
+![weather-dashboard mock up](assets\images\weather-dashboard-screenshot.png)
