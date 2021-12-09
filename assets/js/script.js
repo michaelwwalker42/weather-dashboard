@@ -74,7 +74,7 @@ function fetchWeather(city) {
                                     for (let index = 0; index < 5; index++) {
                                         // create card elements to show forecast
                                         var forecastCardEl = document.createElement("div");
-                                        forecastCardEl.setAttribute("class", "card-body forecastCard m-1 p-1 col-2 fs-5 text-white");
+                                        forecastCardEl.setAttribute("class", "card-body forecastCard m-1 p-1 col-sm-12 col-md-2 fs-5 text-white");
                                         // create element to show forecast date
                                         var forecastDay = dayjs((data.daily[index].dt) * 1000).format('M/DD/YYYY');
                                         var forecastDayEl = document.createElement('p');
@@ -163,8 +163,7 @@ function showHistory() {
 searchForm.addEventListener('submit', handleInputSubmit);
 pastSearches.addEventListener('click', function(event){
     
-    var pastCity = event.target.innerText;
-    console.log(pastCity);
+    var pastCity = event.target.innerText;    
     currentCity.innerText = pastCity;
     forecastContainer.innerHTML = "";
     fetchWeather(event.target.innerText);
