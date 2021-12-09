@@ -18,13 +18,11 @@ if (localStorage.getItem("cities") !== null) {
     cities = JSON.parse(localStorage.getItem("cities"));
 }
 
-
 //-------------------------------------------handleInputSubmit Function------------------------------------------
 
 function handleInputSubmit(event) {
     event.preventDefault();
     showHistory();
-
     // display city name and current date
     var cityName = searchInput.value;
     currentCity.textContent = cityName + now;
@@ -35,12 +33,11 @@ function handleInputSubmit(event) {
     forecastH3.textContent = "5-Day Forecast:"
     // get weather for input city
     fetchWeather(cityName);
-
+    // save search to add to search history
     saveCities(cityName);
-
+    
     searchInput.value = '';
-
-}
+};
 //---------------------------------------End handleInputSubmit Function------------------------------------------
 
 //----------------------------------------------fetchWeather function----------------------------------------------
@@ -140,31 +137,35 @@ function fetchWeather(city) {
 };
 //-------------------------------------------End fetchWeather function----------------------------------------------
 
+//---------------------------------------------------saveCities function--------------------------------------------
+
 function saveCities(city) {
     cities.unshift(city);
+    // limit search history to 7 items
     cities.splice(7);
     localStorage.setItem("cities", JSON.stringify(cities));
 };
+//-----------------------------------------------End saveCities function--------------------------------------------
 
 function showHistory() {
-
+    // create buttons for search history
     pastSearches.innerHTML = "";
     for (let index = 0; index < cities.length; index++) {
         var pastSearchButton = document.createElement("button");
         pastSearchButton.innerText = cities[index];
         pastSearchButton.setAttribute("class", "btn lightBlue w-100 mt-2 text-black");
-
         pastSearches.append(pastSearchButton);
     }
 };
-
-
-
-searchForm.addEventListener('submit', handleInputSubmit);
+//--------------------------------------------pastSearches function---------------------------------------------------
+// add event listener to parent element of buttons
 pastSearches.addEventListener('click', function(event){
     
     var pastCity = event.target.innerText;    
     currentCity.innerText = pastCity;
     forecastContainer.innerHTML = "";
-    fetchWeather(event.target.innerText);
+    fetchWeather(pastCity);
 })
+//----------------------------------------End pastSearches function---------------------------------------------------
+
+searchForm.addEventListener('submit', handleInputSubmit);
