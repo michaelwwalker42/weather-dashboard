@@ -2,61 +2,62 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Weather Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Weather Dashboard</title>
 
 </head>
 
 <body>
-    <div class="col-md-12 text-white text-center header py-1">
-        <h1>Weather Dashboard</h1>
-    </div>
+  <div class="col-md-12 text-white text-center header py-1">
+    <h1>Weather Dashboard</h1>
+  </div>
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3 pb-3 pt-1">
-                <h2 class="form-label fw-bold">Search For a City:</h2>
-                <form class="form" id="searchForm">
-                    <div>
-                        <div>
-                            <input type="text" class="form-control mb-2" id="searchInput" placeholder="City" />
-                            <div class="input-group-append">
-                                <button class="btn btn-primary w-100" type="submit">Search</button>
-                                <hr class="hr" />
-                            </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3 pb-3 pt-1">
+        <h2 class="form-label fw-bold">Search For a City:</h2>
+        <form class="form" id="searchForm">
+          <div>
+            <div>
+              <input type="text" class="form-control mb-2" id="cityInput" placeholder="City" />
+              <input type="text" class="form-control mb-2" id="stateInput" placeholder="State" />
+              <div class="input-group-append">
+                <button class="btn btn-primary w-100" type="submit">Search</button>
+                <hr class="hr" />
+              </div>
 
-                        </div>
-                    </div>
-                </form>
-
-                <div id="pastSearches" class="shadow-sm"></div>
             </div>
-            <div class="card col-md-9 pb-3">
-                <div id="current" class="col-sm-12 mt-3 fs-4 p-3">
-                    <h2 class="fw-bold" id="currentCity"></h2>
-                    <div class="pb-2" id="tempEl"></div>
-                    <div class="pb-2" id="windEl"></div>
-                    <div class="pb-2" id="humidityEl"></div>
-                    <div class="pb-2" id="uvEl"></div>
-                </div>
-                <div id="forecast" class="row mt-3">
-                    <h3 class="fw-bold" id="forecastH3"></h3>
-                    <div id="forecastContainer" class="d-flex row justify-content-evenly text-white d-none fs-4">
+          </div>
+        </form>
 
-                    </div>
-                </div>
-            </div>
+        <div id="pastSearches" class="shadow-sm"></div>
+      </div>
+      <div class="card col-md-9 pb-3">
+        <div id="current" class="col-sm-12 mt-3 fs-4 p-3">
+          <h2 class="fw-bold" id="currentCity"></h2>
+          <div class="pb-2" id="tempEl"></div>
+          <div class="pb-2" id="windEl"></div>
+          <div class="pb-2" id="humidityEl"></div>
+          <div class="pb-2" id="uvEl"></div>
         </div>
+        <div id="forecast" class="row mt-3">
+          <h3 class="fw-bold" id="forecastH3"></h3>
+          <div id="forecastContainer" class="d-flex row justify-content-evenly text-white d-none fs-4">
+
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-    <script src="./assets/js/script.js"></script>
+  </div>
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="./assets/js/App.js"></script>
 </body>
 
 </html>
