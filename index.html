@@ -19,7 +19,7 @@
     <h1>Weather Dashboard</h1>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-xxl mt-5">
     <div class="row">
       <div class="col-md-3 pb-3 pt-1">
         <h2 class="form-label fw-bold">Search For a City:</h2>
@@ -32,26 +32,23 @@
                 <button class="btn btn-primary w-100" type="submit">Search</button>
                 <hr class="hr" />
               </div>
-
             </div>
           </div>
         </form>
-
         <div id="pastSearches" class="shadow-sm"></div>
       </div>
       <div class="card col-md-9 pb-3">
         <div id="current" class="col-sm-12 mt-3 fs-4 p-3">
           <h2 class="fw-bold" id="currentCity"></h2>
           <div class="pb-2" id="tempEl"></div>
+          <div class="pb-2" id="descEl"></div>
           <div class="pb-2" id="windEl"></div>
           <div class="pb-2" id="humidityEl"></div>
           <div class="pb-2" id="uvEl"></div>
         </div>
         <div id="forecast" class="row mt-3">
           <h3 class="fw-bold" id="forecastH3"></h3>
-          <div id="forecastContainer" class="d-flex row justify-content-evenly text-white d-none fs-4">
-
-          </div>
+          <div id="forecastContainer" class="d-flex row justify-content-evenly text-white d-none fs-4"></div>
         </div>
       </div>
     </div>
