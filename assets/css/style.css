@@ -1,4 +1,4 @@
-.header {
+.header, .searchBtn {
     background-image: linear-gradient(45deg, #4e56c7 0%, #2b33a5 52%, #3b3b79 90%);
 }
 
