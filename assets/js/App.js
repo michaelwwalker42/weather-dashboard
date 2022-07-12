@@ -14,6 +14,7 @@ const tempEl = document.getElementById('tempEl');
 const uvEl = document.getElementById('uvEl');
 const windEl = document.getElementById('windEl');
 const descEl = document.getElementById('descEl');
+const clearButton = document.getElementById('clearButton');
 let cities = [];
 
 function handleInputSubmit(event) {
@@ -30,6 +31,8 @@ function handleInputSubmit(event) {
 
   cityInput.value = '';
   stateInput.value = '';
+  clearButton.setAttribute('class', 'btn searchBtn text-white w-100 mt-2');
+
 };
 
 function getCoords(city, state) {
@@ -170,8 +173,10 @@ function loadHistory() {
 
   if (storedhistory) {
     cities = JSON.parse(storedhistory);
+    createHistoryBtns();
+    clearButton.setAttribute('class', 'btn searchBtn text-white w-100 mt-2');
+
   }
-  createHistoryBtns();
 }
 loadHistory();
 
@@ -182,3 +187,9 @@ pastSearches.addEventListener('click', function (event) {
 })
 
 searchForm.addEventListener('submit', handleInputSubmit);
+
+clearButton.addEventListener('click', function (event) {
+  localStorage.removeItem('cities');
+  pastSearches.innerHTML = "";
+  clearButton.setAttribute('class', 'd-none');
+})
