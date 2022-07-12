@@ -42,7 +42,7 @@ function getCoords(city, state) {
     })
     .then(data => {
       const { lat, lon, name, state } = data[0];
-      saveCities(name);
+      saveCities(name, state);
       showWeather(lat, lon, name, state);
     })
     .catch(console.err);
@@ -134,31 +134,39 @@ function showWeather(lat, lon, name, state) {
     .catch(console.err);
 }
 
-function saveCities(city) {
-
-  if (cities.indexOf(city) !== -1) {
-      return
+function saveCities(name, state) {
+  const city = {
+    city: name,
+    state: state
   }
-  cities.push(city)
+  cities.unshift(city);
   localStorage.setItem("cities", JSON.stringify(cities));
-  createHistoryBtns()
+  createHistoryBtns();
 };
 
 function createHistoryBtns() {
+  // limit search history to 5 cities
+  let arrayLength;
+  if (cities.length > 5) {
+    arrayLength = 5
+  } else {
+    arrayLength = cities.length;
+  }
   // create buttons for search history
   pastSearches.innerHTML = "";
-  for (let i = cities.length - 1; i >= 0; i--) {
+  for (let i = 0; i < arrayLength; i++) {
 
-    const pastSearchButton = document.createElement("button");
-    pastSearchButton.innerText = cities[i];
-    pastSearchButton.setAttribute("class", "btn lightBlue w-100 mt-2 text-black");
-    pastSearchButton.setAttribute('data-value', cities[i]);
+    const pastSearchButton = document.createElement('button');
+    pastSearchButton.innerText = `${cities[i].city}, ${cities[i].state}`;
+    pastSearchButton.setAttribute('class', 'btn lightBlue w-100 mt-2 text-black');
+    pastSearchButton.setAttribute('data-city', cities[i].city);
+    pastSearchButton.setAttribute('data-state', cities[i].state);
     pastSearches.append(pastSearchButton);
   }
 };
 
 function loadHistory() {
-  const storedhistory = localStorage.getItem("cities");
+  const storedhistory = localStorage.getItem('cities');
 
   if (storedhistory) {
     cities = JSON.parse(storedhistory);
@@ -168,9 +176,9 @@ function loadHistory() {
 loadHistory();
 
 pastSearches.addEventListener('click', function (event) {
-  console.log(event.target.getAttribute('data-value'))
-  const pastCity = event.target.getAttribute('data-value');
-  getCoords(pastCity, '');
+  const pastCity = event.target.getAttribute('data-city');
+  const pastState = event.target.getAttribute('data-state');
+  getCoords(pastCity, pastState);
 })
 
 searchForm.addEventListener('submit', handleInputSubmit);
