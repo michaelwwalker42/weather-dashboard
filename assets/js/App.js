@@ -31,12 +31,12 @@ function handleInputSubmit(event) {
 
   cityInput.value = '';
   stateInput.value = '';
-  clearButton.setAttribute('class', 'btn searchBtn text-white w-100 mt-2');
+    clearButton.setAttribute('class', 'btn searchBtn text-white w-100 mt-2');
 
 };
 
 function getCoords(city, state) {
-  const geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&limit=1&appid=${apiKey}`
+  const geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&limit=1&appid=${apiKey}`
 
   fetch(geoURL)
     .then(response => {
@@ -68,7 +68,7 @@ function showWeather(lat, lon, name, state) {
       current.setAttribute("class", "border border-dark shadow p-1 my-2");
       // show weather icon
       const iconEl = document.createElement("img");
-      iconEl.setAttribute("src", `http://openweathermap.org/img/wn/${icon}@2x.png`);
+      iconEl.setAttribute("src", `https://openweathermap.org/img/wn/${icon}@2x.png`);
       iconEl.setAttribute("class", "icon");
       currentCity.append(iconEl);
       // show current weather   
@@ -125,7 +125,7 @@ function showWeather(lat, lon, name, state) {
         dailyHumidityEl.innerText = `Humidity: ${dailyHumidity}%`;
         // weather icon
         const dailyIconEl = document.createElement("img");
-        dailyIconEl.setAttribute("src", `http://openweathermap.org/img/wn/${dailyIcon}@2x.png`);
+        dailyIconEl.setAttribute("src", `https://openweathermap.org/img/wn/${dailyIcon}@2x.png`);
         dailyIconEl.setAttribute("class", "icon");
 
         // append forecast elements to forecast cards
