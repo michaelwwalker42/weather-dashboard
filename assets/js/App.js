@@ -28,11 +28,11 @@ function handleInputSubmit(event) {
   }
 
   getCoords(city, state);
+  createHistoryBtns();
 
   cityInput.value = '';
   stateInput.value = '';
-    clearButton.setAttribute('class', 'btn searchBtn text-white w-100 mt-2');
-
+  clearButton.setAttribute('class', 'btn searchBtn text-white w-100 mt-2');
 };
 
 function getCoords(city, state) {
@@ -47,6 +47,7 @@ function getCoords(city, state) {
       const { lat, lon, name, state } = data[0];
       saveCities(name, state);
       showWeather(lat, lon, name, state);
+
     })
     .catch(console.err);
 }
@@ -60,6 +61,7 @@ function showWeather(lat, lon, name, state) {
       return response.json();
     })
     .then(data => {
+
       const { wind_speed, humidity, temp, uvi } = data.current;
       const { icon, description } = data.current.weather[0];
 
@@ -137,14 +139,17 @@ function showWeather(lat, lon, name, state) {
     .catch(console.err);
 }
 
-function saveCities(name, state) {
-  const city = {
-    city: name,
+function saveCities(city, state) {
+  const search = {
+    city: city,
     state: state
   }
-  cities.unshift(city);
+  // if search already exists don't save
+  if (JSON.stringify(cities).includes(JSON.stringify(search))) return;
+
+  // add city to beginning of array so most recent search shows first
+  cities.unshift(search);
   localStorage.setItem("cities", JSON.stringify(cities));
-  createHistoryBtns();
 };
 
 function createHistoryBtns() {
@@ -156,7 +161,7 @@ function createHistoryBtns() {
     arrayLength = cities.length;
   }
   // create buttons for search history
-  pastSearches.innerHTML = "";
+  pastSearches.innerHTML = '';
   for (let i = 0; i < arrayLength; i++) {
 
     const pastSearchButton = document.createElement('button');
@@ -173,23 +178,31 @@ function loadHistory() {
 
   if (storedhistory) {
     cities = JSON.parse(storedhistory);
-    createHistoryBtns();
     clearButton.setAttribute('class', 'btn searchBtn text-white w-100 mt-2');
-
   }
 }
-loadHistory();
 
-pastSearches.addEventListener('click', function (event) {
-  const pastCity = event.target.getAttribute('data-city');
-  const pastState = event.target.getAttribute('data-state');
-  getCoords(pastCity, pastState);
-})
-
-searchForm.addEventListener('submit', handleInputSubmit);
-
-clearButton.addEventListener('click', function (event) {
+function clearHistory(event) {
+  cities = [];
   localStorage.removeItem('cities');
   pastSearches.innerHTML = "";
   clearButton.setAttribute('class', 'd-none');
-})
+}
+
+function previousSearch(event) {
+  const pastCity = event.target.getAttribute('data-city');
+  const pastState = event.target.getAttribute('data-state');
+  getCoords(pastCity, pastState);
+  createHistoryBtns();
+}
+
+function init() {
+  loadHistory();
+  createHistoryBtns();
+}
+
+init();
+
+pastSearches.addEventListener('click', previousSearch);
+searchForm.addEventListener('submit', handleInputSubmit);
+clearButton.addEventListener('click', clearHistory);
