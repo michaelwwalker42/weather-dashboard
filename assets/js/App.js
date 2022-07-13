@@ -149,28 +149,23 @@ function saveCities(city, state) {
 
   // add city to beginning of array so most recent search shows first
   cities.unshift(search);
+  // limit search history to 5
+  cities = cities.slice(0, 5);
+  // save to localstorage
   localStorage.setItem("cities", JSON.stringify(cities));
 };
 
 function createHistoryBtns() {
-  // limit search history to 5 cities
-  let arrayLength;
-  if (cities.length > 5) {
-    arrayLength = 5
-  } else {
-    arrayLength = cities.length;
-  }
-  // create buttons for search history
   pastSearches.innerHTML = '';
-  for (let i = 0; i < arrayLength; i++) {
 
+  cities.forEach(city => {
     const pastSearchButton = document.createElement('button');
-    pastSearchButton.innerText = `${cities[i].city}, ${cities[i].state}`;
+    pastSearchButton.innerText = `${city.city}, ${city.state}`;
     pastSearchButton.setAttribute('class', 'btn lightBlue w-100 mt-2 text-black');
-    pastSearchButton.setAttribute('data-city', cities[i].city);
-    pastSearchButton.setAttribute('data-state', cities[i].state);
+    pastSearchButton.setAttribute('data-city', city.city);
+    pastSearchButton.setAttribute('data-state', city.state);
     pastSearches.append(pastSearchButton);
-  }
+  })
 };
 
 function loadHistory() {
