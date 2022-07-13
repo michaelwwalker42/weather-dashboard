@@ -16,13 +16,13 @@
 
 <body>
   <div class="col-md-12 text-white text-center header py-1">
-    <h1>Weather Dashboard</h1>
+    <h1 class="fw-semibold">Weather Dashboard</h1>
   </div>
 
   <div class="container-xxl mt-5">
     <div class="row">
       <div class="col-md-3 pb-3 pt-1">
-        <h2 class="form-label fw-bold">Search For a City:</h2>
+        <h3 class="form-label fw-bold">Search For a City:</h3>
         <form class="form" id="searchForm">
           <div>
             <div>
@@ -36,11 +36,11 @@
           </div>
         </form>
 
-        <div id="pastSearches" class="shadow-sm"></div>
+        <div id="pastSearches"></div>
         <button class="d-none" type="button" id="clearButton">Clear Searches</button>
       </div>
-      <div class="card col-md-9 pb-3">
-        <div id="current" class="col-sm-12 mt-3 fs-4 p-3">
+      <div class="col-md-9 pb-3">
+        <div id="current">
           <h2 class="fw-bold" id="currentCity"></h2>
           <div class="pb-2" id="tempEl"></div>
           <div class="pb-2" id="descEl"></div>
@@ -50,7 +50,7 @@
         </div>
         <div id="forecast" class="row mt-3">
           <h3 class="fw-bold" id="forecastH3"></h3>
-          <div id="forecastContainer" class="d-flex row justify-content-evenly text-white d-none fs-4"></div>
+          <div id="forecastContainer" class="d-flex row justify-content-evenly text-white fs-4 ms-1 p-2"></div>
         </div>
       </div>
     </div>

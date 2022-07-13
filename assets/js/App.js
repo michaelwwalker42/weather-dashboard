@@ -67,7 +67,7 @@ function showWeather(lat, lon, name, state) {
 
       // current city 
       currentCity.textContent = `${name}, ${state} ${now}`;
-      current.setAttribute("class", "border border-dark shadow p-1 my-2");
+      current.setAttribute("class", "border border-dark shadow-sm  p-1 my-2 bg-white rounded");
       // show weather icon
       const iconEl = document.createElement("img");
       iconEl.setAttribute("src", `https://openweathermap.org/img/wn/${icon}@2x.png`);
@@ -108,11 +108,11 @@ function showWeather(lat, lon, name, state) {
 
         // create card elements to show forecast
         const forecastCardEl = document.createElement("div");
-        forecastCardEl.setAttribute("class", "card-body forecastCard m-1 p-1 col-md-12 col-xl-2 fs-5 text-white");
+        forecastCardEl.setAttribute("class", "mx-1 shadow-sm card-body forecastCard border border-dark col-md-12 col-xl-2 fs-5 text-white rounded-1");
         // forecast date
         const forecastDayEl = document.createElement('p');
         forecastDayEl.innerText = forecastDay;
-        forecastDayEl.setAttribute("class", "card-header darkBlue text-center");
+        forecastDayEl.setAttribute("class", "darkBlue text-center border border-dark rounded");
         // high temp
         const highTempEl = document.createElement('p');
         highTempEl.innerHTML = `High: ${highTemp}<span>&#176;</span>F`;
@@ -161,7 +161,7 @@ function createHistoryBtns() {
   cities.forEach(city => {
     const pastSearchButton = document.createElement('button');
     pastSearchButton.innerText = `${city.city}, ${city.state}`;
-    pastSearchButton.setAttribute('class', 'btn lightBlue w-100 mt-2 text-black');
+    pastSearchButton.setAttribute('class', 'btn lightBlue w-100 mt-2 border border-dark');
     pastSearchButton.setAttribute('data-city', city.city);
     pastSearchButton.setAttribute('data-state', city.state);
     pastSearches.append(pastSearchButton);

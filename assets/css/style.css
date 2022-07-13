@@ -1,19 +1,34 @@
+body {
+  background-color: #e0eefd;
+  font-family:cursive;
+  color: #36366e;
+}
+
 .header, .searchBtn {
-    background-image: linear-gradient(45deg, #4e56c7 0%, #2b33a5 52%, #3b3b79 90%);
+  background-image: linear-gradient(45deg, #6d83bb 0%, #2b33a5 52%, #3b3b79 90%);
 }
 
 .icon {
-    height: 45px;
+  height: 45px;
 }
 
 .forecastCard {
-    background-color: #6887aa;
+  background-color: #86a7dc;
 }
 
 .darkBlue {
-    background-color: #57718f;
+  background-color: #6d83bb;
 }
 
-.lightBlue{
-    background-color: #9ecafd;
+.lightBlue {
+  background-color: #9ecafd;
+}
+
+h1 {
+  text-shadow: 2px 2px black;
+  font-weight: bold;
+}
+
+h3 {
+  text-shadow: 1px 1px #86a7dc;
 }
