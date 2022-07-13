@@ -108,7 +108,7 @@ function showWeather(lat, lon, name, state) {
 
         // create card elements to show forecast
         const forecastCardEl = document.createElement("div");
-        forecastCardEl.setAttribute("class", "mx-1 shadow-sm card-body forecastCard border border-dark col-md-12 col-xl-2 fs-5 text-white rounded-1");
+        forecastCardEl.setAttribute("class", "m-1 shadow-sm card-body forecastCard border border-dark col-md-12 col-xl-2 fs-5 text-white rounded-1");
         // forecast date
         const forecastDayEl = document.createElement('p');
         forecastDayEl.innerText = forecastDay;
