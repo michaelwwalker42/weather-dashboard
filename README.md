@@ -3,9 +3,10 @@
 
 [Click here to go to app](https://michaelwwalker42.github.io/weather-dashboard/)
 ## Description
-A weather dashboard that uses the [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) to retrieve weather data for cities. 
+A weather dashboard that uses the [OpenWeather One Call API](https://openweathermap.org/api/one-call-api) to retrieve weather data and features dynamically updated HTML and CSS using vanilla JavaScript. 
 
-![weather-dashboard mock up](https://github.com/michaelwwalker42/weather-dashboard/blob/main/assets/images/weather-dashboard-screenshot.png?raw=true)
+![weather dashboard demo](./assets/images/weather-dashboard-demo.gif);
+
 ## User Story
 **AS A** traveler  
 **I WANT** to see the weather outlook for multiple cities  
