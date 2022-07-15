@@ -158,7 +158,6 @@ function createHistoryBtns() {
 
   cities.forEach(city => {
     const pastSearchButton = document.createElement('button');
-    pastSearchButton.style.color = '#36366e';
     pastSearchButton.innerText = `${city.city}, ${city.state}`;
     pastSearchButton.setAttribute('class', 'btn lightBlue w-100 mt-2 border border-dark');
     pastSearchButton.setAttribute('data-city', city.city);

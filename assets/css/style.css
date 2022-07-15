@@ -23,7 +23,8 @@ body {
 
 .lightBlue {
   background-color: #9ecafd;
-}
+  color: #36366e;
+};
 
 h1 {
   text-shadow: 2px 2px black;
