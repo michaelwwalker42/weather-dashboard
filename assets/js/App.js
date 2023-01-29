@@ -6,6 +6,7 @@ const humidityEl = document.getElementById('humidityEl');
 const forecast = document.getElementById('forecast');
 const forecastH3 = document.getElementById('forecastH3');
 const forecastContainer = document.getElementById('forecastContainer');
+const myLocationBtn = document.getElementById('myLocationBtn');
 const pastSearches = document.getElementById('pastSearches');
 const cityInput = document.getElementById('cityInput');
 const stateInput = document.getElementById('stateInput');
@@ -33,6 +34,24 @@ function handleInputSubmit(event) {
   cityInput.value = '';
   stateInput.value = '';
 };
+
+function useMyLocation(event) {
+  event.preventDefault();
+
+  const successCallback = (position) => {
+    const lat = position.coords.latitude;
+    const lon = position.coords.longitude;
+    showWeather(lat,lon);
+  };
+
+  const errorCallback = (error) => {
+    console.log(error);
+  };
+
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+}
+
+
 
 function getCityData(city, state) {
   const geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&limit=1&appid=${apiKey}`
@@ -200,3 +219,4 @@ init();
 pastSearches.addEventListener('click', previousSearch);
 searchForm.addEventListener('submit', handleInputSubmit);
 clearButton.addEventListener('click', clearHistory);
+myLocationBtn.addEventListener('click', useMyLocation);
