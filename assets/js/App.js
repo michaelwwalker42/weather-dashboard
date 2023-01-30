@@ -41,17 +41,24 @@ function useMyLocation(event) {
   const successCallback = (position) => {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
-    showWeather(lat,lon);
-  };
+    const reverseGeocodeURL = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=2&appid=${apiKey}`;
 
+    fetch(reverseGeocodeURL)
+      .then(response => {
+        if (!response.ok) throw new Error(response.statusText);
+        return response.json();
+      })
+      .then(data => {
+        const { lat, lon, name, state } = data[0];
+        saveCities(name, state);
+        showWeather(lat, lon, name, state);
+      })
+  };
   const errorCallback = (error) => {
     console.log(error);
   };
-
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 }
-
-
 
 function getCityData(city, state) {
   const geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&limit=1&appid=${apiKey}`
