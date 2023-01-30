@@ -41,7 +41,7 @@ function useMyLocation(event) {
   const successCallback = (position) => {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
-    const reverseGeocodeURL = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=2&appid=${apiKey}`;
+    const reverseGeocodeURL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=2&appid=${apiKey}`;
 
     fetch(reverseGeocodeURL)
       .then(response => {
